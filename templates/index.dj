@@ -288,58 +288,9 @@
         </div>
     </main>
     <script src="{{url_for('static',filename='search.js')}}"></script>
-    <script src="{{url_for('static',filename='header.js')}}"></script>
-    <script>
-        function addSubtaskInput() {
-            const container = document.getElementById('subtasksContainer');
-            const subtaskCount = container.querySelectorAll('.input-subtasks').length + 1;
-
-            const div = document.createElement('div');
-            div.classList.add('input-div', 'subtask');
-            div.id = `subtask${subtaskCount}Container`;
-
-            const label = document.createElement('label');
-            label.setAttribute('for', `subtask${subtaskCount}`);
-
-            const input = document.createElement('input');
-            input.setAttribute('type', 'text');
-            input.setAttribute('name', `subtasks`);
-            input.setAttribute('class', 'input-subtasks');
-            input.setAttribute('id', `subtask${subtaskCount}`);
-            input.setAttribute('placeholder', `Escribe la Subtarea ${subtaskCount}`);
-
-            const removeButton = document.createElement('button');
-            removeButton.classList.add('remove-subtask');
-            
-            // Cambiado para utilizar el ícono SVG en lugar de texto
-            const svgIcon = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-            svgIcon.setAttribute("width", "22");
-            svgIcon.setAttribute("height", "22");
-            svgIcon.setAttribute("fill", "currentColor");
-            svgIcon.setAttribute("class", "bi bi-x");
-            svgIcon.setAttribute("viewBox", "0 0 16 16");
-
-            const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
-            path.setAttribute("d", "M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708");
-
-            svgIcon.appendChild(path);
-            removeButton.appendChild(svgIcon);
-
-            removeButton.onclick = function() {
-                removeSubtask(div.id);
-            };
-
-            div.appendChild(label);
-            div.appendChild(input);
-            div.appendChild(removeButton);
-            container.appendChild(div);
-        }
-
-        function removeSubtask(containerId) {
-            const container = document.getElementById(containerId);
-            container.parentNode.removeChild(container);
-        }
-    </script>
+    <script src="{{url_for('static',filename='subtask.js')}}"></script>
+    <script src="{{url_for('static',filename='changeColor.js')}}"></script>
+    <script src="{{url_for('static',filename='filters.js')}}"></script>
     <script>
         function updateCharCount(textarea) {
             const maxLength = 500;
@@ -349,64 +300,11 @@
             charCountElement.textContent = `${currentLength}/${maxLength}`;
     
             if (currentLength > maxLength) {
-                charCountElement.style.color = 'red'; // Cambia el color del contador si se supera el límite
+                charCountElement.style.color = 'red';
             } else {
-                charCountElement.style.color = ''; // Restaura el color por defecto
+                charCountElement.style.color = '';
             }
         }
-    </script>
-    <script>
-        function changeStatusColor() {
-            const statusDropdown = document.getElementById('status');
-            const statusContainer = document.getElementById('statusContainer');
-
-            statusContainer.classList.toggle('todo-selected', statusDropdown.value === 'ToDo');
-            statusContainer.classList.toggle('doing-selected', statusDropdown.value === 'Doing');
-            statusContainer.classList.toggle('done-selected', statusDropdown.value === 'Done');
-        }
-
-        function changePriorityColor() {
-            const priorityDropdown = document.getElementById('priority');
-            const priorityContainer = document.getElementById('priorityContainer');
-
-            priorityContainer.classList.toggle('high-selected', priorityDropdown.value === 'Alta');
-            priorityContainer.classList.toggle('medium-selected', priorityDropdown.value === 'Media');
-            priorityContainer.classList.toggle('low-selected', priorityDropdown.value === 'Baja');
-        }
-    </script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-        const statusFilter = document.getElementById('statusFilter');
-        const dateFilter = document.getElementById('dateFilter');
-        const priorityFilter = document.getElementById('priorityFilter');
-        const cards = document.querySelectorAll('.card');
-
-        // Agrega un evento para manejar los cambios en los filtros
-                statusFilter.addEventListener('change', filterTasks);
-                dateFilter.addEventListener('change', filterTasks);
-                priorityFilter.addEventListener('change', filterTasks);
-
-                function filterTasks() {
-                    const selectedStatus = statusFilter.value;
-                    const selectedDate = dateFilter.value;
-                    const selectedPriority = priorityFilter.value;
-
-                    // Itera sobre las tarjetas y muestra u oculta según los criterios
-                    cards.forEach(function(card) {
-                        const status = card.querySelector('.status').textContent;
-                        const priority = card.querySelector('.priority').textContent;
-                        const date = card.querySelector('.date').textContent;
-
-                        const statusMatch = selectedStatus === '' || status === selectedStatus;
-                        const priorityMatch = selectedPriority === '' || priority === selectedPriority;
-                        const dateMatch = selectedDate === '' || date === selectedDate;
-
-                        // Muestra u oculta la tarjeta según los criterios
-                        card.style.display = statusMatch && priorityMatch && dateMatch ? 'block' : 'none';
-                    });
-                }
-            });
-
     </script>
 </body>
 </html>

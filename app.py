@@ -47,7 +47,7 @@ def home():
         return redirect('/')
     
     all_todos = Todos.query.all()
-    return render_template('index.html', todos=all_todos)
+    return render_template('index.dj', todos=all_todos)
 
 @app.route('/delete/<int:_id>')
 def delete(_id):
