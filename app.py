@@ -85,7 +85,7 @@ def update(_id):
         db.session.commit()
         return redirect('/')
     todo = Todos.query.filter_by(_id=_id).first()
-    return render_template('update.html' , todo=todo)
+    return render_template('update.dj' , todo=todo)
 
 if __name__ == "__main__":
     # Correr la aplicación en modo de desarrollo
