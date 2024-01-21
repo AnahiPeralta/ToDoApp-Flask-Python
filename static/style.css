@@ -1,0 +1,701 @@
+* {
+    margin: 0;
+    padding: 0;
+    scroll-behavior: smooth;
+    font-family: "Hanken Grotesk", sans-serif;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #f0f0f0;
+    display: grid;
+    grid-template-columns: 0.2fr 1fr;
+    height: 100vh
+}
+
+button, a {
+    cursor: pointer;
+}
+
+.header {
+    background: linear-gradient(to left, #5594c7, #5d7ada);
+    padding: 30px 15px;
+}
+
+.content-header {
+    width: 100%;
+}
+
+.contain-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btn-hamburguer {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    color: white;
+    cursor: pointer;
+}
+
+.contain-flex h1 {
+    color: white;
+    font-size: 20px;
+    font-weight: 800;
+}
+
+ul {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+.search-suggestions {
+    position:absolute;
+    background-color: rgb(241, 241, 241);
+    padding: 5px 10px;
+    margin-top: -20px;
+}
+
+.search-bar {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    margin: 30px 0px 20px 0px;
+    background-color: #F2F2F2;
+    border-radius: 10px;
+    padding: 12px;
+    gap: 5px;
+}
+
+.search-bar input {
+    background-color: transparent;
+    border: none;
+    width: 100%;
+}
+
+.search-bar input::placeholder {
+    font-size: 14px;
+}
+
+.search-bar input:focus {
+    outline: none;
+}
+
+.search-btn {
+    background-color: transparent;
+    border: none;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.search-btn:hover {
+    color: #4f6fd6;
+    transition: 0.2s;
+}
+
+.nav li a{
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    gap: 10px;
+    margin: 7px 0px;
+    padding: 7px 5px;
+    color: white;
+}
+
+.options-nav .nav li {
+    transition: 0.3s;
+}
+
+.options-nav .nav li:hover {
+    background-color: #00478a;
+    transition: 0.3s;
+    border-radius: 5px;
+}
+
+ul.nav.preferences {
+    margin-top: 352px;
+}
+
+ul.nav.preferences li {
+    background-color: #F2F2F2;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+ul.nav.preferences li a{
+    color: #4f6fd6;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+ul.nav.preferences li a.flex-contain-btn{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.contain-icon {
+    display: flex;
+    justify-content: left;
+    gap: 5px;
+    align-items: center;
+}
+
+ul.nav.preferences li a:hover {
+    background-color: #00478a;
+    transition: 0.2s;
+    color: white;
+    border-radius: 5px;
+}
+
+
+
+/*Main*/
+
+.main {
+    display: grid;
+    grid-template-columns: 1fr 0.6fr;
+}
+
+.contain-task {
+    padding: 30px 60px;
+}
+
+.add-task {
+    padding: 30px 40px;
+}
+
+.contain-task h2 {
+    font-size: 35px;
+    margin-top: -5px;
+    line-height: 38px;
+}
+
+/*Container tasks*/
+
+.container-filters {
+    margin-top: 10px;
+}
+
+.filters {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.container-filters h4 {
+    font-size: 16px;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+.container-filters input,
+.container-filters select {
+    padding: 5px 10px;
+    border-radius: 6px;
+    border: 1px solid #d8d8d8;
+    background-color: transparent;
+}
+
+.container-task {
+    margin-top: 20px;
+    width: 100%;
+}
+
+button.add-new-task {
+    border: 1px solid #e4e4e4;
+    background-color: #e4e4e4;
+    width: 100%;
+    border-radius: 10px;
+    padding: 17px 10px;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.card-task {
+    margin-top: 20px;
+    max-height: 555px; 
+    overflow-y: auto;
+    padding-right: 10px;
+    border-radius: 10px;
+}
+
+.card-task .card:first-child {
+    margin-top: 0;
+}
+
+.card-task .card:last-child {
+    margin-bottom: 0;
+}
+
+.card-task::-webkit-scrollbar,
+.container-subtask::-webkit-scrollbar,
+.subtasksContainer::-webkit-scrollbar {
+    width: 12px;
+    cursor:pointer;
+}
+
+.card-task::-webkit-scrollbar-thumb,
+.container-subtask::-webkit-scrollbar-thumb,
+.subtasksContainer::-webkit-scrollbar-thumb {
+    background-color: #e4e4e4; 
+    border-radius: 5px;
+}
+
+.card-task::-webkit-scrollbar-track,
+.container-subtask::-webkit-scrollbar-track,
+.subtasksContainer::-webkit-scrollbar-track {
+    background-color: rgb(207, 207, 207); 
+    border-radius: 5px;
+}
+
+/* Para navegadores que no sean WebKit (como Firefox) */
+.card-task::-moz-scrollbar,
+.container-subtask::-moz-scrollbar,
+.subtasksContainer::-moz-scrollbar {
+    width: 12px;
+}
+
+.card-task::-moz-scrollbar-thumb,
+.container-subtask::-moz-scrollbar-thumb,
+.subtasksContainer::-moz-scrollbar-thumb {
+    background-color: #e4e4e4;
+}
+
+.card-task::-moz-scrollbar-track,
+.container-subtask::-moz-scrollbar-track,
+.subtasksContainer::-moz-scrollbar-track {
+    background-color: rgb(207, 207, 207); 
+    border-radius: 5px;
+}
+
+.card-task .card {
+    padding: 15px 10px;
+    border: 1px solid #d8d8d8;
+    border-radius: 10px;
+    margin: 10px 0px;
+}
+
+.contain-card {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.card.high-priority {
+    border-left: 15px solid rgb(207, 81, 81); 
+}
+
+.card.medium-priority {
+    border-left: 15px solid rgb(212, 149, 78); 
+}
+
+.card.low-priority {
+    border-left: 15px solid rgb(115, 184, 115); 
+}
+
+.card h3 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.card span.status,
+ span.priority {
+    padding: 2px 10px;
+    border: 1px solid #d8d8d8;
+    font-size: 14px;
+    border-radius: 5px;
+    font-weight: 500;
+}
+
+.status.ToDo {
+    background-color: rgba(39, 152, 180, 0.082);
+}
+
+.status.Doing {
+    background-color: rgba(39, 152, 180, 0.295);
+}
+
+.status.Done {
+    background-color: rgb(114, 191, 243);
+}
+
+.contain {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    gap: 20px;
+}
+
+.contain-priority,
+.contain-status {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin-bottom: 7px;
+}
+
+.contain-priority p,
+.contain-status p {
+    font-size: 14px;
+}
+
+.priority {
+    color: white;
+    font-weight: 300;
+}
+
+.priority.high {
+    background-color: rgb(207, 81, 81); 
+}
+
+.priority.medium {
+    background-color:  rgb(212, 149, 78); 
+}
+
+.priority.low {
+    background-color: rgb(115, 184, 115); 
+}
+
+.contain-time {
+    padding-top: 10px;
+    border-top: 1px solid #d8d8d8;
+    margin-top: 7px;
+    width: 100%;
+}
+
+.contain-time p {
+    font-size: 13px;
+}
+
+.button-row {
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    gap: 5px;
+}
+
+.contain-time span {
+    font-weight: 600;
+    color: #5594c7;
+}
+
+.button-row a {
+    text-decoration: none;
+}
+
+.actions-btns {
+    padding: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 2px;
+    color: rgb(255, 255, 255);
+}
+
+.actions-btns.edit {
+    background-color: rgb(76, 169, 223);
+}
+
+.actions-btns.delete {
+    background-color: rgb(218, 65, 65);
+}
+
+
+.subtasks-info-check {
+    color: #929292;
+}
+
+.subtasks-info-check p.info-subtask-complete{
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    gap: 2px;
+    font-style: oblique;
+}
+
+.progress-bar {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    gap: 15px;
+    margin-bottom: 5px;
+}
+
+.progress-bar p {
+    font-size: 14px;
+    color: #000;
+}
+
+progress {
+    width: 100%;
+    appearance: none;
+    box-sizing: border-box;
+    display: inline-block;
+    block-size: 13px;
+    vertical-align: -0.2em;
+    border: none;
+    background-color: #e4e4e4;
+    color: #3498db;
+}
+
+/* Para WebKit (Chrome, Safari) */
+progress::-webkit-progress-bar {
+    background-color: #e4e4e4;
+}
+
+progress::-webkit-progress-value {
+    background-color: #3498db;
+}
+
+/* Para Firefox */
+progress::-moz-progress-bar {
+    background-color: #3498db;
+}
+
+/*sección Añadir tareas*/
+
+.add-task {
+    background-color: #e9e9e9;
+}
+
+.line-division {
+    width: 100%;
+    height: 1px;
+    background-color: rgb(218, 218, 218);
+    margin: 10px 0px;
+}
+
+.add-task .input-div input {
+    border: none;
+    background-color: transparent;
+    width: 100%;
+    padding: 5px 0px;
+}
+
+.add-task .input-div input.input-title {
+    font-size: 23px;
+    font-weight: 500;
+}
+
+.add-task .input-div input:focus,
+ textarea:focus {
+    outline: none;
+}
+
+.title-description {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.title-description label {
+    font-size: 17px;
+    font-weight: 500;
+}
+
+.input-div .input-textarea {
+    margin-left: 20px;
+    margin-top: 10px;
+}
+
+.input-textarea p {
+    font-size: 14px;
+    text-align: right;
+}
+
+.input-div textarea {
+    padding: 10px;
+    width: 100%;
+    border: 1px solid #e0e0e0;
+    background-color: #e0e0e0;
+    border-radius: 10px;
+}
+
+.add-new-subtask {
+    border: 1px solid #e0e0e0;
+    background-color: #e0e0e0;
+    width: 100%;
+    border-radius: 7px;
+    padding: 12px 10px;
+    margin: 10px 0px;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.add-task .input-div input.input-subtasks {
+    border: 1px solid #e0e0e0;
+    border-left: 7px solid #5594c7;
+    background-color: #e0e0e0;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 14px;
+}
+
+.input-div.subtask  {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+button.remove-subtask {
+    border: none;
+    background-color: transparent;
+    padding: 0px 10px;
+    color: rgb(146, 146, 146);
+}
+
+.buttons-form {
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.subtasksContainer {
+    height: 180px;
+    overflow-y: auto;  
+}
+
+.buttons-form button {
+    padding: 10px 15px;
+    font-size: 16px;
+} 
+
+.buttons-form button.add-btn {
+    background-color: #5594c7;
+    border: 1px solid #5594c7;
+    color: white;
+    font-weight: 400;
+    border-radius: 10px;
+    border: none;
+}
+
+.buttons-form button.cancel-btn {
+    background-color: transparent;
+    color: #5594c7;
+    font-weight: 500;
+    border-radius: 10px;
+    border: 1px solid #5594c7;
+}
+
+.square-status {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.contain-option-task {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    width: 70%;
+}
+
+.statusContainer,
+.priorityContainer {
+    height: 14px;
+    width: 14px;
+    border-radius: 100%;
+    background-color: #d3d3d3;
+}
+
+.statusContainer.todo-selected {
+    background-color: rgba(39, 152, 180, 0.226);
+}
+
+.statusContainer.doing-selected {
+    background-color: rgba(29, 154, 185, 0.295);
+}
+
+.statusContainer.done-selected {
+    background-color: rgb(114, 191, 243);
+}
+
+.priorityContainer.high-selected {
+    background-color: rgb(207, 81, 81); 
+}
+
+.priorityContainer.medium-selected {
+    background-color:rgb(212, 149, 78); 
+}
+
+.priorityContainer.low-selected {
+    background-color:rgb(115, 184, 115); 
+}
+
+.select-options-container select {
+    padding: 5px;
+    border: 1px solid #e0e0e0;
+    background-color: #e0e0e0;
+    cursor: pointer;
+}
+
+.select-options-container select:focus {
+    outline: none;
+}
+
+.input-container {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    gap: 40px;
+}
+
+.input-container.subtask {
+    gap: 10px;
+    margin: 13px 0px;
+}
+
+
+.add-task .input-div .input-container.subtask input.subtask-completed,
+.add-task .input-div.select-all input.task-completed {
+    width: auto;
+}
+
+.container-subtask {
+    height: 250px;
+    overflow-y: auto;  
+    padding-right:10px;
+}
+
+.input-div.select-all {
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    padding-right:10px;
+    gap: 10px;
+}
+
+label.complete-task {
+    font-style: oblique;
+    font-size: 15px;
+}
+
+.main.edit {
+    display: grid;
+    grid-template-columns: 1fr;
+    margin-left: 10px;
+}
+
+.add-task.edit {
+    padding: 30px 100px;
+}

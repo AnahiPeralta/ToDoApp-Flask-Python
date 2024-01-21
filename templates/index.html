@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flask Python App</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='style.css')}}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">    
+</head>
+<body>
+    <header class="header">
+        <div class="content-header">
+            <div class="contain-flex">
+                    <h1 class="hidden">#ToDoApp</h1>
+                    <div class="btn-hamburguer" onclick="toggleElements()">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
+                        </svg>
+                    </div>
+            </div>
+            <div class="search-bar">
+                <div class="container-button">
+                    <button class="search-btn" id="search-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+                        </svg>
+                    </button>
+                </div>
+                <input 
+                    spellcheck="false"
+                    type="text"
+                    placeholder="Busca en la lista de tareas"
+                    name="search"
+                    id="search"
+                    class="search"
+                />
+            </div>
+            <div class="contain-options">
+                    <div class="options-nav">
+                        <ul class="nav">
+                            <li>
+                                <a href="/">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" fill="currentColor" class="bi bi-house-fill" viewBox="0 0 16 16">
+                                        <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L8 2.207l6.646 6.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293z"/>
+                                        <path d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293z"/>
+                                    </svg>
+                                    <span class="hidden">Inicio</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" fill="currentColor" class="bi bi-list-task" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd" d="M2 2.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5V3a.5.5 0 0 0-.5-.5zM3 3H2v1h1z"/>
+                                        <path d="M5 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5M5.5 7a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1zm0 4a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1z"/>
+                                        <path fill-rule="evenodd" d="M1.5 7a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5zM2 7h1v1H2zm0 3.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm1 .5H2v1h1z"/>
+                                    </svg>
+                                    <span class="hidden">Mis tareas</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" fill="currentColor" class="bi bi-kanban" viewBox="0 0 16 16">
+                                        <path d="M13.5 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1h-11a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zm-11-1a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
+                                        <path d="M6.5 3a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1zm-4 0a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1zm8 0a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1z"/>
+                                    </svg>
+                                    <span class="hidden">Board</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>  
+                    <div class="options-nav">
+                        <ul class="nav preferences">
+                            <li>
+                                <a class="flex-contain-btn" href="/">
+                                    <div class="contain-icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-gear-fill" viewBox="0 0 16 16">
+                                            <path d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z"/>
+                                        </svg>
+                                        <span class="hidden">Configuración</span>
+                                    </div>
+                                    <svg class="hidden" xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="currentColor" class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
+                                        <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0"/>
+                                    </svg>
+                                </a>
+                            </li> 
+                            <li>
+                                <a href="/">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" fill="currentColor" class="bi bi-info-circle-fill" viewBox="0 0 16 16">
+                                        <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2"/>
+                                    </svg>
+                                    <span class="hidden">Sobre la app</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>   
+            </div>
+        </div>
+    </header>
+    <main class="main">
+        <div class="contain-task">
+            <h2>Mis tareas</h2>
+            <div class="container-filters">
+                <h4>Filtrar por</h4>
+                <div class="filters">
+                    <select name="statusFilter" id="statusFilter">
+                        <option value="" disabled selected hidden>Estado</option>
+                        <option value="">Todos los Estados</option>
+                        <option value="ToDo">Por hacer</option>
+                        <option value="Doing">En proceso</option>
+                        <option value="Done">Hecho</option>
+                    </select>
+                    <input type="date" name="dateFilter" id="dateFilter">
+                    <select name="priorityFilter" id="priorityFilter">
+                        <option value="" disabled selected hidden>Prioridad</option>
+                        <option value="">Todas las prioridades</option>
+                        <option value="Alta">Alta</option>
+                        <option value="Media">Media</option>
+                        <option value="Baja">Baja</option>
+                    </select>
+                </div>
+            </div>
+            <div class="container-task">
+                <div class="card-task">
+                    {% for todo in todos %}
+                        <div class="card {% if todo.priority == 'Alta' %}high-priority{% elif todo.priority == 'Media' %}medium-priority{% elif todo.priority == 'Baja' %}low-priority{% endif %}">
+                            <div class="contain-card">
+                                <div class="infor-task">
+                                    <h3>{{ todo.title }}</h3>
+                                    <div class="contain">
+                                        <div class="contain-priority">
+                                            <p>Prioridad:</p>
+                                            <span class="priority {% if todo.priority == 'Alta' %}high{% elif todo.priority == 'Media' %}medium{% elif todo.priority == 'Baja' %}low{% endif %}">{{ todo.priority }}</span>        
+                                        </div>
+                                        <div class="contain-status">
+                                            <p>Estado:</p>
+                                            <span class="status {% if todo.status == 'ToDo' %}ToDo{% elif todo.status == 'Doing' %}Doing{% elif todo.status == 'Done' %}Done{% endif %}">{{ todo.status }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="button-row">
+                                    <a href="/update/{{ todo._id }}" class="actions-btns edit">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                                            <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                                            <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
+                                        </svg>
+                                    </a> 
+                                    <a href="/delete/{{ todo._id }}" class="actions-btns delete">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
+                                            <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
+                                        </svg>
+                                    </a> 
+                                </div>
+                            </div>
+                            <div class="subtasks-info-check">
+                                {% set completed_subtasks = todo.subtasks|selectattr('completed', 'eq', true)|list %}
+                                {% set total_subtasks = todo.subtasks|length %}
+                                {% set completion_percentage = (completed_subtasks|length / total_subtasks) * 100 %}
+                                <div class="progress-bar">
+                                    <!-- Agregar la barra de progreso en porcentaje -->
+                                    <progress value="{{ completion_percentage }}" max="100"></progress>
+                                    <!-- Formatear el porcentaje antes de mostrarlo -->
+                                    <p>{{ "%0.0f"|format(completion_percentage) }}%</p>
+
+                                </div>
+                                <p class="info-subtask-complete">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-all" viewBox="0 0 16 16">
+                                        <path d="M8.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L2.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093L8.95 4.992zm-.92 5.14.92.92a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 1 0-1.091-1.028L9.477 9.417l-.485-.486z"/>
+                                    </svg>
+                                    {{ completed_subtasks|length }}/{{ total_subtasks }} 
+                                    Subtareas completas
+                                </p>
+                            </div>
+                            <div class="contain-time">
+                                <p>Creado el <span class="date">{{ todo.date }}</span> 
+                                    a las <span class="hour">{{ todo.created_at.strftime('%I:%M %p') }}</span>
+                                </p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="add-task">
+            <form method="POST" action="/" class="form" name="form">
+                <div class="input-div">
+                    <input 
+                        type="text"
+                        name="title"
+                        id="title"
+                        class="input-title"
+                        placeholder="Escribe el titulo de la tarea"
+                        required
+                    />
+                </div>
+                <div class="line-division"></div>
+                <div class="input-div">
+                    <div class="title-description">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-justify-left" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M2 12.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5m0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5m0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5"/>
+                        </svg>
+                        <label for="description">Descripción</label>
+                    </div>
+                    <div class="input-textarea">
+                        <textarea
+                        name="description" 
+                        class="input-text"
+                        id="description" 
+                        cols="10" 
+                        rows="5"
+                        placeholder="Describe tu tarea aqui"
+                        oninput="updateCharCount(this)" required></textarea>
+                        <p id="charCount">0/500</p>
+                    </div>
+                    
+                </div>
+                <div class="line-division"></div>
+                <div class="input-div">
+                    <div class="contain-option-task">
+                        <div class="square-status">
+                            <div class="statusContainer" id="statusContainer"></div>
+                            <label for="status">Estado</label>
+                        </div>
+                        <div class="select-options-container">
+                            <select name="status" id="status" class="input-status" onchange="changeStatusColor()" required>
+                                <option value="" disabled selected hidden>Elija una opcion</option>
+                                <option value="ToDo">Por hacer</option>
+                                <option value="Doing">En proceso</option>
+                                <option value="Done">Hecho</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-div">
+                    <div class="contain-option-task" style="margin-top: 10px;">
+                        <div class="square-status">
+                            <div class="priorityContainer" id="priorityContainer"></div>
+                            <label for="priority">Prioridad</label>
+                        </div>
+                        <div class="select-options-container">
+                            <select name="priority" id="priority" class="input-priority" onchange="changePriorityColor()" required>
+                                <option value="" disabled selected hidden>Elija una opcion</option>
+                                <option value="Alta">Alta</option>
+                                <option value="Media">Media</option>
+                                <option value="Baja">Baja</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="line-division"></div>
+                <div class="title-description">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list-ul" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M5 11.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5m-3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2m0 4a1 1 0 1 0 0-2 1 1 0 0 0 0 2m0 4a1 1 0 1 0 0-2 1 1 0 0 0 0 2"/>
+                      </svg>
+                    <label for="description">Subtareas</label>
+                </div>
+                <button class="add-new-subtask" type="button" onclick="addSubtaskInput()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+                        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
+                    </svg>
+                    Añadir Nueva Subtarea
+                </button>
+                <div id="subtasksContainer" class="subtasksContainer">
+                    <div class="input-div subtask" id="subtask1Container">
+                        <input 
+                            type="text"
+                            name="subtasks"
+                            class="input-subtasks"
+                            id="subtask1"
+                            placeholder="Escribe la Subtarea 1"
+                            required
+                        />
+                        <button class="remove-subtask" onclick="removeSubtask('subtask1Container')">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+                                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                <div class="buttons-form">
+                    <button class="cancel-btn"><a href="/" style="color:rgb(76, 169, 223); text-decoration: none">Limpiar</a></button>
+                    <button class="add-btn" type="submit">Agregar Tarea</button>    
+                </div>
+            </form>
+        </div>
+    </main>
+    <script src="{{url_for('static',filename='search.js')}}"></script>
+    <script src="{{url_for('static',filename='header.js')}}"></script>
+    <script>
+        function addSubtaskInput() {
+            const container = document.getElementById('subtasksContainer');
+            const subtaskCount = container.querySelectorAll('.input-subtasks').length + 1;
+
+            const div = document.createElement('div');
+            div.classList.add('input-div', 'subtask');
+            div.id = `subtask${subtaskCount}Container`;
+
+            const label = document.createElement('label');
+            label.setAttribute('for', `subtask${subtaskCount}`);
+
+            const input = document.createElement('input');
+            input.setAttribute('type', 'text');
+            input.setAttribute('name', `subtasks`);
+            input.setAttribute('class', 'input-subtasks');
+            input.setAttribute('id', `subtask${subtaskCount}`);
+            input.setAttribute('placeholder', `Escribe la Subtarea ${subtaskCount}`);
+
+            const removeButton = document.createElement('button');
+            removeButton.classList.add('remove-subtask');
+            
+            // Cambiado para utilizar el ícono SVG en lugar de texto
+            const svgIcon = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+            svgIcon.setAttribute("width", "22");
+            svgIcon.setAttribute("height", "22");
+            svgIcon.setAttribute("fill", "currentColor");
+            svgIcon.setAttribute("class", "bi bi-x");
+            svgIcon.setAttribute("viewBox", "0 0 16 16");
+
+            const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+            path.setAttribute("d", "M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708");
+
+            svgIcon.appendChild(path);
+            removeButton.appendChild(svgIcon);
+
+            removeButton.onclick = function() {
+                removeSubtask(div.id);
+            };
+
+            div.appendChild(label);
+            div.appendChild(input);
+            div.appendChild(removeButton);
+            container.appendChild(div);
+        }
+
+        function removeSubtask(containerId) {
+            const container = document.getElementById(containerId);
+            container.parentNode.removeChild(container);
+        }
+    </script>
+    <script>
+        function updateCharCount(textarea) {
+            const maxLength = 500;
+            const currentLength = textarea.value.length;
+            const charCountElement = document.getElementById('charCount');
+            
+            charCountElement.textContent = `${currentLength}/${maxLength}`;
+    
+            if (currentLength > maxLength) {
+                charCountElement.style.color = 'red'; // Cambia el color del contador si se supera el límite
+            } else {
+                charCountElement.style.color = ''; // Restaura el color por defecto
+            }
+        }
+    </script>
+    <script>
+        function changeStatusColor() {
+            const statusDropdown = document.getElementById('status');
+            const statusContainer = document.getElementById('statusContainer');
+
+            statusContainer.classList.toggle('todo-selected', statusDropdown.value === 'ToDo');
+            statusContainer.classList.toggle('doing-selected', statusDropdown.value === 'Doing');
+            statusContainer.classList.toggle('done-selected', statusDropdown.value === 'Done');
+        }
+
+        function changePriorityColor() {
+            const priorityDropdown = document.getElementById('priority');
+            const priorityContainer = document.getElementById('priorityContainer');
+
+            priorityContainer.classList.toggle('high-selected', priorityDropdown.value === 'Alta');
+            priorityContainer.classList.toggle('medium-selected', priorityDropdown.value === 'Media');
+            priorityContainer.classList.toggle('low-selected', priorityDropdown.value === 'Baja');
+        }
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+        const statusFilter = document.getElementById('statusFilter');
+        const dateFilter = document.getElementById('dateFilter');
+        const priorityFilter = document.getElementById('priorityFilter');
+        const cards = document.querySelectorAll('.card');
+
+        // Agrega un evento para manejar los cambios en los filtros
+                statusFilter.addEventListener('change', filterTasks);
+                dateFilter.addEventListener('change', filterTasks);
+                priorityFilter.addEventListener('change', filterTasks);
+
+                function filterTasks() {
+                    const selectedStatus = statusFilter.value;
+                    const selectedDate = dateFilter.value;
+                    const selectedPriority = priorityFilter.value;
+
+                    // Itera sobre las tarjetas y muestra u oculta según los criterios
+                    cards.forEach(function(card) {
+                        const status = card.querySelector('.status').textContent;
+                        const priority = card.querySelector('.priority').textContent;
+                        const date = card.querySelector('.date').textContent;
+
+                        const statusMatch = selectedStatus === '' || status === selectedStatus;
+                        const priorityMatch = selectedPriority === '' || priority === selectedPriority;
+                        const dateMatch = selectedDate === '' || date === selectedDate;
+
+                        // Muestra u oculta la tarjeta según los criterios
+                        card.style.display = statusMatch && priorityMatch && dateMatch ? 'block' : 'none';
+                    });
+                }
+            });
+
+    </script>
+</body>
+</html>
