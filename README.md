@@ -8,9 +8,9 @@ La aplicación ofrece una interfaz intuitiva para organizar y gestionar las tare
 
 ## Tecnologías Utilizadas
 
-Mentory Search está desarrollado utilizando las siguientes tecnologías:
--Flask: Framework de Python para el desarrollo web.
--HTML, CSS y JavaScript
--SQLite
--SVG Icons
- 
+<ul>
+  <li>Flask: Framework de Python para el desarrollo web.</li>
+  <li>HTML, CSS y JavaScript</li>
+  <li>SQLite</li>
+  <li>SVG Icons</li>
+</ul>
