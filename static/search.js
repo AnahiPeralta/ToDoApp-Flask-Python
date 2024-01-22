@@ -3,23 +3,35 @@ document.addEventListener('DOMContentLoaded', function() {
     const searchBtn = document.getElementById('search-btn');
     const cards = document.querySelectorAll('.card');
 
-    searchBtn.addEventListener('click', function() {
-        const searchTerm = searchInput.value.toLowerCase();
+    const removeAccents = (text) => text.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    const includesSearchTerm = (text, searchTerm) => removeAccents(text).toLowerCase().includes(removeAccents(searchTerm).toLowerCase());
+
+    const performSearch = () => {
+        const searchTerm = searchInput.value;
 
         cards.forEach(function(card) {
             const title = card.querySelector('h3');
             const priority = card.querySelector('.priority');
             const status = card.querySelector('.status');
 
-            const titleText = title.textContent.toLowerCase();
-            const priorityText = priority.textContent.toLowerCase();
-            const statusText = status.textContent.toLowerCase();
+            const isMatch = includesSearchTerm(title.textContent, searchTerm) ||
+                            includesSearchTerm(priority.textContent, searchTerm) ||
+                            includesSearchTerm(status.textContent, searchTerm);
 
-            // Verifica si el término de búsqueda está presente en el título, prioridad o estado
-            const isMatch = titleText.includes(searchTerm) || priorityText.includes(searchTerm) || statusText.includes(searchTerm);
-
-            // Muestra u oculta la tarjeta según si hay coincidencia con el término de búsqueda
             card.style.display = isMatch ? 'block' : 'none';
         });
-    });
+    };
+
+    // Función para manejar la tecla Enter
+    const handleEnterKeyPress = (event) => {
+        if (event.key === 'Enter') {
+            performSearch();
+        }
+    };
+
+    // Agregar el evento de clic al botón de búsqueda
+    searchBtn.addEventListener('click', performSearch);
+
+    // Agregar el evento de tecla al input de búsqueda
+    searchInput.addEventListener('keyup', handleEnterKeyPress);
 });
