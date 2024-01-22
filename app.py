@@ -51,7 +51,7 @@ def home():
         all_todos = Todos.query.all()
         return render_template('index.dj', todos=all_todos)
     except Exception as e:
-        flash(f'Ocurrió un error: {str(e)}', 'error')
+        flash(f'Ocurrio un error: {str(e)}', 'error')
         return redirect('/')
 
 @app.route('/delete/<int:_id>')
